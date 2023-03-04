@@ -28,6 +28,6 @@ module.exports = {
 		'linebreak-style': 'off',
 		'react/jsx-indent-props': ['error', 'tab'],
 		'react/require-default-props': 'off',
-		'react/function-component-definition': 'arrow-function',
+		'react/function-component-definition': [2, { "namedComponents": "arrow-function" }]
 	},
 };
