@@ -1,11 +1,16 @@
 {
 	"compilerOptions": {
 	  "target": "es6",
-	  "module": "commonjs",
+	  "module": "CommonJS",
 	  "outDir": "./dist",
 	  "strict": true,
-	  "esModuleInterop": true
+	  "esModuleInterop": true,
+	  "experimentalDecorators": true,
+	  "emitDecoratorMetadata": true
 	},
-	"exclude": ["./eslintrc.cjs"]
+	"exclude": ["./eslintrc.cjs"],
+	"include": [
+        "src/**/*"
+    ]
   }
   

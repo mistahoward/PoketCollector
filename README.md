@@ -8,7 +8,9 @@ I have recently acquired a taste for collecting pokemon cards - while I won't be
 - React Router
 
 ### BackEnd Tech
-- NestJS
+- Express
+	- tsoa
+	- openAPI (swagger)
 
 ### Overlap Tech
 - ESlint
