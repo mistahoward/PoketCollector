@@ -12,8 +12,6 @@ const Layout = () => {
 	// ! need to put hook here - use bool for debugging
 	const signedIn = false;
 
-	const x = 'debug';
-	console.debug(x);
 	return (
 		<>
 			<Navbar bg="main" expand="lg">

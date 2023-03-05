@@ -32,5 +32,6 @@ module.exports = {
 		'import/no-extraneous-dependencies': 'off',
 		'import/no-unresolved': 'off',
 		'react/react-in-jsx-scope': 'off',
+		'jsx-a11y/label-has-associated-control': 'off',
 	},
 };

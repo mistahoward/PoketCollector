@@ -16,8 +16,26 @@ BBE1FA */
 	color: #0F4C75;
 }
 
+.btn-primary {
+	background: #4E748E;
+}
+
+.btn-primary:hover {
+	background: #0F4C75;
+}
+
 h1, h2, h3, h4, h5, .card-title {
 	color: #0F4C75 !important;
+}
+
+a {
+	color: #4E748E;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #0F4C75;
 }
 
 .border-dark {
