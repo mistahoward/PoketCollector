@@ -14,7 +14,7 @@ const Layout = () => {
 	const x = 'debug';
 	console.debug(x);
 	return (
-		<Navbar bg="light" expand="lg">
+		<Navbar bg="main" expand="lg">
 			<Container fluid>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Brand href="#home">PCG</Navbar.Brand>
