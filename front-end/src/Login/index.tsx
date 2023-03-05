@@ -1,12 +1,29 @@
+import { useState } from 'react';
 import {
 	Button,
 	Card, Col, Container, Form, Row
 } from 'react-bootstrap';
+// import sha256 from 'crypto-js/sha256';
 
 import './Login.css';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [validated, setValidated] = useState(false);
+
+	// salts are created with crypto.randomBytes(16).toString('base64')
+
+	const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+		const form = event.currentTarget;
+		if (form.checkValidity() === false) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		setValidated(true);
+	};
+
 	console.debug();
 	return (
 		<Container fluid>
@@ -15,20 +32,40 @@ const Login = () => {
 					<Card border="dark" className="mt-4">
 						<Card.Body>
 							<Card.Title>Login</Card.Title>
-							<Card.Text>
-								<Form.Label className="text-muted mt-2">Email Address</Form.Label>
-								<Form.Control type="email" placeholder="name@example.com" />
-								<Form.Label className="text-muted mt-2">Password</Form.Label>
-								<Form.Control type="password" placeholder="Password" />
-							</Card.Text>
-							<Row className="justify-content-end">
-								<Col className="text-muted">
-									<Link to="/forgot_password">Forgot Password?</Link>
-								</Col>
-								<Col xs={6} sm={3} md={2} className="text-end">
-									<Button variant="primary" type="submit" className="w-100">Login</Button>
-								</Col>
-							</Row>
+							<Form noValidate validated={validated} onSubmit={() => handleSubmit}>
+								<Card.Text>
+									<Form.Label className="text-muted mt-2">Email Address</Form.Label>
+									<Form.Control
+										required
+										onChange={(e) => setEmail(e.target.value)}
+										type="email"
+										placeholder="name@example.com"
+										value={email}
+									/>
+									<Form.Label className="text-muted mt-2">Password</Form.Label>
+									<Form.Control
+										required
+										onChange={(e) => setPassword(e.target.value)}
+										type="password"
+										placeholder="Password"
+										value={password}
+									/>
+								</Card.Text>
+								<Row className="justify-content-end">
+									<Col className="text-muted">
+										<Link to="/forgot_password">Forgot Password?</Link>
+									</Col>
+									<Col xs={6} sm={4} md={3} className="text-end">
+										<Button variant="primary" type="submit" className="w-100">Login</Button>
+									</Col>
+								</Row>
+								<Row>
+									<Col className="text-muted mt-2">
+										Don&apos;t have an account?&nbsp;
+										<Link to="/register">Register</Link>
+									</Col>
+								</Row>
+							</Form>
 						</Card.Body>
 					</Card>
 				</Col>
