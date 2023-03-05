@@ -16,6 +16,14 @@ BBE1FA */
 	color: #0F4C75;
 }
 
+h1, h2, h3, h4, h5, .card-title {
+	color: #0F4C75 !important;
+}
+
+.border-dark {
+	border-color: #0F4C75 !important;
+}
+
 .bg-light {
 	color: #BBE1FA;
 }

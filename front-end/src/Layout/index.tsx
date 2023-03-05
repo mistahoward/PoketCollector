@@ -19,7 +19,7 @@ const Layout = () => {
 			<Navbar bg="main" expand="lg">
 				<Container fluid>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Brand onClick={() => navigate('home')}>PCG</Navbar.Brand>
+					<Navbar.Brand onClick={() => navigate('home')}>PCGC</Navbar.Brand>
 					<Navbar.Offcanvas id="basic-navbar-nav" placement="start">
 						<Offcanvas.Header closeButton>
 							<Offcanvas.Title>Menu</Offcanvas.Title>
@@ -32,10 +32,10 @@ const Layout = () => {
 								>
 									Home
 								</Nav.Link>
-								<Nav.Link disabled href="#action1">Collection</Nav.Link>
-								<Nav.Link disabled href="#action2">Shop</Nav.Link>
-								<Nav.Link disabled href="#action3">Expansions</Nav.Link>
-								<Nav.Link disabled href="#action4">Cards</Nav.Link>
+								<Nav.Link disabled>Collection</Nav.Link>
+								<Nav.Link disabled>Shop</Nav.Link>
+								<Nav.Link disabled>Expansions</Nav.Link>
+								<Nav.Link disabled>Cards</Nav.Link>
 							</Nav>
 						</Offcanvas.Body>
 					</Navbar.Offcanvas>

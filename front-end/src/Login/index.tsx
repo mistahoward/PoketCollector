@@ -1,13 +1,19 @@
-const Login = () => {
-	return <>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ligula ac lacus dapibus tempor vitae at tortor. Fusce eget enim tincidunt, viverra augue et, mattis ante. Vestibulum velit felis, eleifend et dolor at, hendrerit dapibus nisi. Ut nec tellus ultricies, congue tortor sed, malesuada nisl. Nunc felis est, maximus nec tincidunt in, fringilla et risus. Curabitur vel ultrices risus, a placerat odio. Sed fermentum suscipit nisl, eget malesuada turpis posuere vitae. Nullam rhoncus molestie gravida. Vestibulum ornare ipsum nec erat iaculis, at placerat ipsum dignissim. Morbi nec nunc ligula.
+import { Card, Container } from 'react-bootstrap';
 
-	Aliquam placerat at elit ut placerat. Vivamus ut sem ut diam imperdiet pellentesque sed consequat enim. Aliquam at ipsum at risus lacinia rutrum. Nam sed eleifend nulla. Etiam ligula elit, maximus sit amet rhoncus sit amet, malesuada vitae ante. Vivamus libero mi, sodales eu sem sit amet, viverra cursus ipsum. Etiam malesuada nisl in sapien scelerisque vulputate. Morbi molestie fermentum urna, sit amet sollicitudin nisl egestas elementum. In quis tincidunt odio. Vivamus sollicitudin dictum consequat. Fusce tempor eros vitae blandit fringilla. Cras faucibus, ex nec fermentum elementum, ligula arcu lacinia tortor, in molestie neque nisl nec nisl. Vestibulum pretium, turpis quis tempus euismod, tellus quam scelerisque elit, non pharetra risus tellus vitae arcu. Donec ut metus est. Donec ullamcorper, ante posuere accumsan rutrum, ante odio bibendum ex, et luctus urna urna at odio. Curabitur id nisl placerat, rutrum eros non, tempor nunc.
-	
-	Donec rhoncus, eros sed placerat elementum, felis mauris vestibulum augue, at euismod ante nunc id dolor. Duis cursus, tortor eget tincidunt scelerisque, est risus vehicula mauris, et vulputate arcu sapien in turpis. Duis feugiat dapibus magna eget varius. Integer ut augue ornare odio auctor consequat sed sed leo. In hac habitasse platea dictumst. Aliquam bibendum mollis sapien, ac ornare leo tempor eget. Pellentesque mollis turpis in mauris vulputate, ut posuere justo pellentesque. Pellentesque tortor odio, porta nec ultrices vel, tincidunt non massa. Nulla id ipsum pulvinar, placerat ipsum id, tempor risus. Praesent lobortis ipsum non magna pharetra elementum.
-	
-	Etiam sed nibh erat. Phasellus a nisi ut odio tempus fringilla ac non nisl. Vivamus sit amet elit est. Etiam mi mi, ultricies vitae tortor eget, imperdiet lobortis augue. Praesent nibh dui, ornare porta ipsum sit amet, accumsan fermentum arcu. Nunc egestas est eu faucibus tempus. Cras mattis odio vitae lacinia consequat. Nam vitae suscipit sapien, quis faucibus tellus. In porttitor leo sodales libero iaculis, sed varius odio eleifend. Vivamus id orci molestie, sollicitudin massa vel, efficitur massa.
-	
-	Sed quis nisl ultricies, tempor erat pharetra, auctor neque. Donec aliquam dictum velit sed porttitor. Nulla facilisi. Etiam dignissim eleifend purus, sed facilisis erat lacinia vel. Morbi fringilla mauris non mi placerat venenatis vitae id erat. In vel bibendum massa. Maecenas ac cursus nunc.</>;
+const Login = () => {
+	console.debug();
+	return (
+		<Container fluid>
+			<Card border="dark" className="mt-4">
+				<Card.Body>
+					<Card.Title>Login</Card.Title>
+					<Card.Text>
+						Login form
+					</Card.Text>
+				</Card.Body>
+			</Card>
+		</Container>
+	)
 };
 
 export default Login;
