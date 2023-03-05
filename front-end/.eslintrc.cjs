@@ -3,7 +3,6 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	plugins: ['react', '@typescript-eslint'],
 	extends: [
 		'plugin:react/recommended',
 		'airbnb',
@@ -11,6 +10,7 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 	],
 	parser: '@typescript-eslint/parser',
+	plugins: ['react', '@typescript-eslint'],
 	overrides: [],
 	parserOptions: {
 		ecmaVersion: 'latest',
@@ -21,13 +21,15 @@ module.exports = {
 		'no-tabs': 'off',
 		indent: ['error', 'tab', { SwitchCase: 1 }],
 		'@typescript-eslint/semi': 'off',
-		'@typescript-eslint/indent': ['error', 'tab'],
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
 		'react/jsx-indent': ['error', 'tab'],
 		'comma-dangle': 'off',
 		'linebreak-style': 'off',
 		'react/jsx-indent-props': ['error', 'tab'],
 		'react/require-default-props': 'off',
-		'react/function-component-definition': [2, { "namedComponents": "arrow-function" }]
+		'react/function-component-definition': [2, { "namedComponents": "arrow-function" }],
+		'import/extensions': 'off',
+		'import/no-unresolved': 'off',
+		'react/react-in-jsx-scope': 'off',
 	},
 };
