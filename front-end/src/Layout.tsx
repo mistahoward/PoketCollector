@@ -1,29 +1,41 @@
-// import { useGetUserQuery } from './store/user';
-import { useState } from 'react';
-import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	Col,
+	Container, Nav, Navbar, Offcanvas
+} from 'react-bootstrap';
+
+import './Layout.css';
 
 const Layout = () => {
-	// const { data, isLoading } = useGetUserQuery();
+	// ! need to put hook here - use bool for debugging
+	const signedIn = true;
 
 	const x = 'debug';
 	console.debug(x);
 	return (
 		<Navbar bg="light" expand="lg">
 			<Container fluid>
-				<Navbar.Brand href="#home">PCG</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Offcanvas id="basic-navbar-nav" placement="end">
+				<Navbar.Brand href="#home">PCG</Navbar.Brand>
+				<Navbar.Offcanvas id="basic-navbar-nav" placement="start">
 					<Offcanvas.Header closeButton>
-						<Offcanvas.Title>Offcanvas</Offcanvas.Title>
+						<Offcanvas.Title>Menu</Offcanvas.Title>
 					</Offcanvas.Header>
 					<Offcanvas.Body>
 						<Nav>
-							<Nav.Link href="#action1">Action</Nav.Link>
-							<Nav.Link href="#action2">Another action</Nav.Link>
-							<Nav.Link href="#action3">Something else</Nav.Link>
+							<Nav.Link disabled href="#action1">Collection</Nav.Link>
+							<Nav.Link disabled href="#action2">Shop</Nav.Link>
+							<Nav.Link disabled href="#action3">Expansions</Nav.Link>
+							<Nav.Link disabled href="#action4">Cards</Nav.Link>
 						</Nav>
 					</Offcanvas.Body>
 				</Navbar.Offcanvas>
+				<Navbar.Text className="nav-bar-icon">
+					{signedIn
+						? <FontAwesomeIcon icon={faCircleUser} />
+						: <FontAwesomeIcon icon={faRightFromBracket} /> }
+				</Navbar.Text>
 			</Container>
 		</Navbar>
 	);
