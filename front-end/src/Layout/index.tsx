@@ -1,7 +1,6 @@
 import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	Col,
 	Container, Nav, Navbar, Offcanvas
 } from 'react-bootstrap';
 
@@ -9,7 +8,7 @@ import './Layout.css';
 
 const Layout = () => {
 	// ! need to put hook here - use bool for debugging
-	const signedIn = true;
+	const signedIn = false;
 
 	const x = 'debug';
 	console.debug(x);

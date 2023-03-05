@@ -1,9 +1,15 @@
+/* pallette:
+1B262C
+0F4C75
+3282B8
+BBE1FA */
+
 .bg-main {
-	color: #3282B8;
+	color: #BBE1FA;
 }
 
 .navbar-light {
-	background-color: #3282B8;
+	background-color: #BBE1FA;
 }
 
 .bg-dark {
@@ -21,4 +27,3 @@
 .navbar-nav {
 	color: #1B262C;
 }
-/* 1B262C */
