@@ -18,7 +18,6 @@ const Register = () => {
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		const form = event.currentTarget;
-		const validForm = form.checkValidity();
 		if (form.checkValidity() === false) {
 			event.preventDefault();
 			event.stopPropagation();
@@ -121,6 +120,7 @@ const Register = () => {
 									<Row className="justify-content-end">
 										<Col xs={6} sm={4} md={3} className="text-end">
 											<Button
+												disabled={!formValid && !validPassword}
 												variant="primary"
 												type="submit"
 												className="w-100"

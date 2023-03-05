@@ -3,7 +3,6 @@ import {
 	Button,
 	Card, Col, Container, Form, Row
 } from 'react-bootstrap';
-// import sha256 from 'crypto-js/sha256';
 
 import { Link } from 'react-router-dom';
 
@@ -11,8 +10,6 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
-
-	// salts are created with crypto.randomBytes(16).toString('base64')
 
 	const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
 		const form = event.currentTarget;
