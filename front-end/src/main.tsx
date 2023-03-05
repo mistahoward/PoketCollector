@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 
 import { store } from './store/index';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -1,7 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 export type User = {
 	id: number;
@@ -15,7 +12,7 @@ export type User = {
 
 export const userApi = createApi({
 	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: process.env.BACKEND_ROOT }),
+	baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND_ROOT }),
 	endpoints: (builder) => ({
 		getUser: builder.query<User, number>({
 			query: (id) => `users/${id}`,

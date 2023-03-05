@@ -29,6 +29,7 @@ module.exports = {
 		'react/require-default-props': 'off',
 		'react/function-component-definition': [2, { "namedComponents": "arrow-function" }],
 		'import/extensions': 'off',
+		'import/no-extraneous-dependencies': 'off',
 		'import/no-unresolved': 'off',
 		'react/react-in-jsx-scope': 'off',
 	},
