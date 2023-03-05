@@ -5,7 +5,6 @@ import {
 } from 'react-bootstrap';
 // import sha256 from 'crypto-js/sha256';
 
-import './Login.css';
 import { Link } from 'react-router-dom';
 
 const Login = () => {

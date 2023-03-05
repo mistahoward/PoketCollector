@@ -20,6 +20,10 @@ BBE1FA */
 	background: #4E748E;
 }
 
+.btn-primary:disabled {
+	background: #4E748E;
+}
+
 .btn-primary:hover {
 	background: #0F4C75;
 }
@@ -48,6 +52,10 @@ a:hover {
 
 .navbar-brand {
 	color: #1B262C;
+}
+
+.card-title {
+	font-size: 1.8em;
 }
 
 .navbar-nav {
