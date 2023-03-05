@@ -1,7 +1,9 @@
+import { Container } from 'react-bootstrap';
+
 const Home = () => (
-	<div>
-		testing
-	</div>
+	<Container fluid className="mt-2">
+		Welcome to Poketcgcollector!
+	</Container>
 );
 
 export default Home;
