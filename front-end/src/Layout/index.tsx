@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	Container, Nav, Navbar, Offcanvas
 } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
 import './Layout.css';
 
 const Layout = () => {
+	const navigate = useNavigate();
 	// ! need to put hook here - use bool for debugging
 	const signedIn = false;
 
@@ -16,7 +18,7 @@ const Layout = () => {
 		<Navbar bg="main" expand="lg">
 			<Container fluid>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Brand href="#home">PCG</Navbar.Brand>
+				<Navbar.Brand onClick={() => navigate('home')}>PCG</Navbar.Brand>
 				<Navbar.Offcanvas id="basic-navbar-nav" placement="start">
 					<Offcanvas.Header closeButton>
 						<Offcanvas.Title>Menu</Offcanvas.Title>
@@ -33,7 +35,7 @@ const Layout = () => {
 				<Navbar.Text className="nav-bar-icon">
 					{signedIn
 						? <FontAwesomeIcon icon={faCircleUser} />
-						: <FontAwesomeIcon icon={faRightFromBracket} /> }
+						: <Link to="login"><FontAwesomeIcon icon={faRightFromBracket} /></Link>}
 				</Navbar.Text>
 			</Container>
 		</Navbar>
