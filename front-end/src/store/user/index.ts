@@ -1,4 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export type User = {
 	id: number;
@@ -10,23 +13,14 @@ export type User = {
 	updatedAt: Date;
 };
 
-const initialState: User = {
-	id: 0,
-	firstName: '',
-	lastName: '',
-	userName: '',
-	email: '',
-	createdAt: new Date(),
-	updatedAt: new Date(),
-};
-
-const userSlice = createSlice({
-	name: 'user',
-	initialState,
-	reducers: {
-		setUser: (_, action: PayloadAction<User>) => action.payload
-	}
+export const userApi = createApi({
+	reducerPath: 'userApi',
+	baseQuery: fetchBaseQuery({ baseUrl: process.env.BACKEND_ROOT }),
+	endpoints: (builder) => ({
+		getUser: builder.query<User, number>({
+			query: (id) => `users/${id}`,
+		})
+	}),
 });
 
-export const { setUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { useGetUserQuery } = userApi;
