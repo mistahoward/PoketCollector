@@ -19,6 +19,7 @@ module.exports = {
 	rules: {
 		'no-tabs': 'off',
 		indent: ['error', 'tab', { SwitchCase: 1 }],
+		quotes: ['error', 'single'],
 		// '@typescript-eslint/semi': 'off',
 		// '@typescript-eslint/indent': ['error', 'tab'],
 		'comma-dangle': 'off',

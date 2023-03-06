@@ -6,14 +6,37 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"PingResponse": {
+			"CreateUserResponse": {
 				"properties": {
-					"message": {
+					"success": {
+						"type": "boolean"
+					},
+					"error": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"message"
+					"success"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserCreationPayload": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"email",
+					"password"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -23,7 +46,7 @@
 	},
 	"info": {
 		"title": "back-end",
-		"version": "1.0.0",
+		"version": "0.0.1",
 		"license": {
 			"name": "ISC"
 		},
@@ -31,23 +54,60 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/ping": {
+		"/user/{user_id}": {
 			"get": {
-				"operationId": "GetMessage",
+				"operationId": "GetUser",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user": {
+			"post": {
+				"operationId": "CreateUser",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/PingResponse"
+									"$ref": "#/components/schemas/CreateUserResponse"
 								}
 							}
 						}
 					}
 				},
+				"tags": [
+					"User"
+				],
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserCreationPayload"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

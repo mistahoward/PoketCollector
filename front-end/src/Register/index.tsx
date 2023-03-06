@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
-	Button,
-	Card, Col, Container, Form, Row
+	Button, Card, Col, Container, Form, Row
 } from 'react-bootstrap';
 import ReactPasswordChecklist from 'react-password-checklist';
 
@@ -39,7 +38,9 @@ const Register = () => {
 								<Card.Text>
 									<Row>
 										<Col>
-											<Form.Label className="text-muted mt-2">Email Address</Form.Label>
+											<Form.Label className="text-muted mt-2">
+												Email Address
+											</Form.Label>
 											<Form.Control
 												required
 												onChange={(e) => setEmail(e.target.value)}
@@ -49,7 +50,9 @@ const Register = () => {
 											/>
 										</Col>
 										<Col>
-											<Form.Label className="text-muted mt-2">Username</Form.Label>
+											<Form.Label className="text-muted mt-2">
+												Username
+											</Form.Label>
 											<Form.Control
 												required
 												onChange={(e) => setUserName(e.target.value)}
@@ -61,7 +64,9 @@ const Register = () => {
 									</Row>
 									<Row>
 										<Col>
-											<Form.Label className="text-muted mt-2">Password</Form.Label>
+											<Form.Label className="text-muted mt-2">
+												Password
+											</Form.Label>
 											<Form.Control
 												required
 												onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +76,9 @@ const Register = () => {
 											/>
 										</Col>
 										<Col>
-											<Form.Label className="text-muted mt-2">Confirm Password</Form.Label>
+											<Form.Label className="text-muted mt-2">
+												Confirm Password
+											</Form.Label>
 											<Form.Control
 												required
 												onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -84,7 +91,13 @@ const Register = () => {
 									<Row className="mt-2">
 										<Col>
 											<ReactPasswordChecklist
-												rules={['minLength', 'specialChar', 'number', 'capital', 'match']}
+												rules={[
+													'minLength',
+													'specialChar',
+													'number',
+													'capital',
+													'match',
+												]}
 												minLength={5}
 												value={password}
 												valueAgain={passwordConfirm}
