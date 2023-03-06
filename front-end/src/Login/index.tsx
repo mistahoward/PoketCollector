@@ -20,7 +20,6 @@ const Login = () => {
 		setValidated(true);
 	};
 
-	console.debug();
 	return (
 		<Container fluid>
 			<Row className="justify-content-center">

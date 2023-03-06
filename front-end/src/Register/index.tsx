@@ -8,8 +8,6 @@ import ReactPasswordChecklist from 'react-password-checklist';
 const Register = () => {
 	const [email, setEmail] = useState('');
 	const [userName, setUserName] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
 
@@ -26,7 +24,6 @@ const Register = () => {
 		setFormValid(true);
 	};
 
-	console.debug();
 	return (
 		<Container fluid>
 			<Row className="justify-content-center">
@@ -59,28 +56,6 @@ const Register = () => {
 												type="text"
 												placeholder="Username"
 												value={userName}
-											/>
-										</Col>
-									</Row>
-									<Row>
-										<Col>
-											<Form.Label className="text-muted mt-2">First Name</Form.Label>
-											<Form.Control
-												required
-												onChange={(e) => setFirstName(e.target.value)}
-												type="text"
-												placeholder="First Name"
-												value={firstName}
-											/>
-										</Col>
-										<Col>
-											<Form.Label className="text-muted mt-2">Last Name</Form.Label>
-											<Form.Control
-												required
-												onChange={(e) => setLastName(e.target.value)}
-												type="text"
-												placeholder="Last Name"
-												value={lastName}
 											/>
 										</Col>
 									</Row>
