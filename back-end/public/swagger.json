@@ -23,7 +23,7 @@
 			},
 			"UserCreationPayload": {
 				"properties": {
-					"username": {
+					"userName": {
 						"type": "string"
 					},
 					"email": {
@@ -34,7 +34,7 @@
 					}
 				},
 				"required": [
-					"username",
+					"userName",
 					"email",
 					"password"
 				],

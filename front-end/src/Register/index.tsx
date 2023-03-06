@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
 	Button, Card, Col, Container, Form, Row
 } from 'react-bootstrap';
 import ReactPasswordChecklist from 'react-password-checklist';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
+import { UserCreationPayload, useCreateUserMutation } from '../store/user';
 
 const Register = () => {
 	const [email, setEmail] = useState('');
@@ -10,10 +15,29 @@ const Register = () => {
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
 
+	const navigate = useNavigate();
+
 	const [formValid, setFormValid] = useState(false);
 	const [validPassword, setValidPassword] = useState(false);
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const swal = withReactContent(Swal);
+
+	const user = useRef<UserCreationPayload>({
+		email: '',
+		userName: '',
+		password: '',
+	});
+
+	const [createUser] = useCreateUserMutation();
+
+	const resetFields = () => {
+		setEmail('');
+		setUserName('');
+		setPassword('');
+		setPasswordConfirm('');
+	};
+
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
 			event.preventDefault();
@@ -21,6 +45,33 @@ const Register = () => {
 		}
 		event.preventDefault();
 		setFormValid(true);
+		if (validPassword) {
+			user.current = {
+				email,
+				userName,
+				password,
+			};
+			try {
+				const response = await createUser(user.current).unwrap();
+				if (response) {
+					resetFields();
+					swal.fire(({
+						title: 'Success',
+						icon: 'success',
+						text: 'You have successfully registered an account!'
+					}));
+					navigate('/login');
+				}
+			} catch (error) {
+				console.debug(error);
+				resetFields();
+				swal.fire(({
+					title: 'Error',
+					icon: 'error',
+					text: 'Something went wrong trying to register.'
+				}));
+			}
+		}
 	};
 
 	return (

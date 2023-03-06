@@ -10,14 +10,27 @@ export type User = {
 	updatedAt: Date;
 };
 
+export type UserCreationPayload = {
+	userName: string;
+	email: string;
+	password: string;
+};
+
 export const userApi = createApi({
 	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND_ROOT }),
+	baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BACKEND_ROOT}/user` }),
 	endpoints: (builder) => ({
 		getUser: builder.query<User, number>({
-			query: (id) => `users/${id}`,
-		})
+			query: (id) => `/${id}`,
+		}),
+		createUser: builder.mutation<UserCreationPayload, UserCreationPayload>({
+			query: (user) => ({
+				url: '/',
+				method: 'POST',
+				body: user
+			}),
+		}),
 	}),
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, useCreateUserMutation } = userApi;

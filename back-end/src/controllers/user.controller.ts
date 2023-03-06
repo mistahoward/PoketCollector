@@ -1,5 +1,5 @@
 import { Post, Route, Get, Body, Tags  } from "tsoa";
-import { UserCreationPayload } from "../repositories/user";
+import { UserCreationPayload, createUser } from "../repositories/user.repo";
 
 interface CreateUserResponse {
 	success: boolean;
@@ -16,7 +16,8 @@ export default class UserController {
 	
 	@Post("/")
 	public async createUser(@Body() userCreationParam: UserCreationPayload): Promise<CreateUserResponse> {
-		const response = await this.createUser(userCreationParam);
+		const response = await createUser(userCreationParam);
+		console.log(response);
 		if (response) {
 			return {
 				success: true,

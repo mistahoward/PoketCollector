@@ -2,6 +2,8 @@ import express, { Application } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 
+import cors from "cors";
+
 import Router from "./routes";
 import AppDataSource from "./config/database";
 const PORT = process.env.PORT || 8000;
@@ -21,6 +23,9 @@ app.use(
     },
   })
 );
+
+app.options('*', cors());
+app.use(cors({ origin: process.env.FRONT_END_ROOT }));
 
 app.use(Router);
 
