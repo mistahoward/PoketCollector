@@ -4,7 +4,7 @@ import {
 	Card, Col, Container, Form, Row
 } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 
 import { useLoginMutation } from '../store/user';
@@ -13,6 +13,8 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
+
+	const navigate = useNavigate();
 
 	const swal = withReactContent(Swal);
 
@@ -24,17 +26,20 @@ const Login = () => {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		setValidated(true);
+		event.preventDefault();
 		try {
 			const response = await login({ email, password }).unwrap();
-			if (response) {
+			setValidated(true);
+			if (response.success === true) {
 				swal.fire(({
 					title: 'Success',
 					icon: 'success',
 					text: 'You have successfully logged in!',
 				}));
+				navigate('/home');
 			}
 		} catch (err) {
+			setValidated(false);
 			swal.fire(({
 				title: 'Error',
 				icon: 'error',
@@ -50,7 +55,7 @@ const Login = () => {
 					<Card border="dark" className="mt-4">
 						<Card.Body>
 							<Card.Title>Login</Card.Title>
-							<Form noValidate validated={validated} onSubmit={() => handleSubmit}>
+							<Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)}>
 								<Card.Text>
 									<Form.Label className="text-muted mt-2">Email Address</Form.Label>
 									<Form.Control

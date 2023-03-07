@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 
 import session from 'express-session';
+const pgSession = require('connect-pg-simple')(session);
 
 import cors from 'cors';
 
@@ -11,19 +12,20 @@ import AppDataSource from './config/database';
 const PORT = process.env.PORT || 8000;
 
 import passport from 'passport';
-import passportLocal from 'passport-local';
+import { Pool } from 'pg';
 
 const app: Application = express();
 
-app.use(express.json());
-app.use(morgan('tiny'));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.static('public'));
+const pool = new Pool({
+  host: process.env.POSTGRESURL ?? '',
+  port: 5432,
+  user: process.env.POSTGRESUSERNAME ?? '',
+  password: process.env.POSTGRESPASSWORD ?? '',
+});
 
 app.use(
 	session({
-		store: new (require('connect-pg-simple')(session))(),
+		store: new pgSession({ pool }),
 		secret: process.env.SESSION_SECRET ?? '',
 		resave: false,
 		saveUninitialized: false,
@@ -34,6 +36,13 @@ app.use(
 		},
 	})
 );
+
+
+app.use(express.json());
+app.use(morgan('tiny'));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static('public'));
 
 app.use(passport.authenticate('session'));
 
@@ -46,6 +55,18 @@ app.use(
 		},
 	})
 );
+
+passport.serializeUser((user, cb) => {
+	process.nextTick(() => {
+		cb(null, user);
+	})
+});
+
+passport.deserializeUser((user: Express.User, cb) => {
+	process.nextTick(() => {
+		cb(null, user);
+	})
+});
 
 app.options('*', cors());
 app.use(cors({ origin: process.env.FRONT_END_ROOT }));

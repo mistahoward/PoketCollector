@@ -21,6 +21,11 @@ export type UserLoginPayload = {
 	password: string;
 }
 
+export type UserLoginResponse = {
+	success?: boolean;
+	error?: string;
+}
+
 export const userApi = createApi({
 	reducerPath: 'userApi',
 	baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BACKEND_ROOT}/user` }),
@@ -35,7 +40,7 @@ export const userApi = createApi({
 				body: user
 			}),
 		}),
-		login: builder.mutation<UserLoginPayload, UserLoginPayload>({
+		login: builder.mutation<UserLoginResponse, UserLoginPayload>({
 			query: (user) => ({
 				url: '/login',
 				method: 'POST',
