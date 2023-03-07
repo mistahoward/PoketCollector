@@ -40,27 +40,26 @@ export const createUser = async (payload: UserCreationPayload): Promise<SuccessO
 	}
 }
 
-export const login = async (payload: LoginPayload): Promise<SuccessOrError> => {
+export const login = async (payload: LoginPayload): Promise<User | undefined> => {
 	const workingUser = new User();
 	const userRepo = AppDataSource.manager.getRepository(User);
-	const claimedUser = await userRepo.find({
+	const claimedUser = await userRepo.findOne({
 		where: {
 			email: payload.email
 		}
 	});
 
 	if (claimedUser) {
-		workingUser.password = claimedUser[0].password;
-		workingUser.salt = claimedUser[0].salt;
+		workingUser.password = claimedUser.password;
+		workingUser.salt = claimedUser.salt;
 		const hash = sha256(payload.password + workingUser.salt).toString();
 		if (hash === workingUser.password) {
-			return {
-				success: true
-			}
+			const sessionUser = new User();
+			sessionUser.id = claimedUser.id;
+			sessionUser.userName = claimedUser.userName;
+			sessionUser.email = claimedUser.email;
+			return sessionUser;
 		}
 	}
-	return {
-		success: false,
-		error: 'Incorrect password'
-	}
+	return undefined;
 }

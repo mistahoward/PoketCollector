@@ -38,6 +38,45 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"userName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"salt": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"userName",
+					"email",
+					"password",
+					"salt",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"LoginPayload": {
 				"properties": {
 					"email": {
@@ -132,7 +171,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/SuccessOrError"
+									"$ref": "#/components/schemas/User"
 								}
 							}
 						}

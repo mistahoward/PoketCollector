@@ -21,11 +21,15 @@ const pool = new Pool({
   port: 5432,
   user: process.env.POSTGRESUSERNAME ?? '',
   password: process.env.POSTGRESPASSWORD ?? '',
+  database: process.env.POSTGRESUSERNAME ?? '',
 });
 
 app.use(
 	session({
-		store: new pgSession({ pool }),
+		store: new pgSession({ 
+		pool,
+		tableName: 'session' 
+	}),
 		secret: process.env.SESSION_SECRET ?? '',
 		resave: false,
 		saveUninitialized: false,
@@ -43,8 +47,6 @@ app.use(morgan('tiny'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('public'));
-
-app.use(passport.authenticate('session'));
 
 app.use(
 	'/docs',

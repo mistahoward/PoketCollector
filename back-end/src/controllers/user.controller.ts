@@ -1,6 +1,7 @@
 import { Post, Route, Get, Body, Tags } from 'tsoa';
 import { LoginPayload, UserCreationPayload, createUser, login } from '../repositories/user.repo';
 import { SuccessOrError } from '../types';
+import { User } from '../models';
 
 @Route('user')
 @Tags('User')
@@ -21,7 +22,7 @@ export default class UserController {
 	@Post('/login')
 	public async login(
 		@Body() loginParam: LoginPayload
-	): Promise<SuccessOrError> {
+	): Promise<User | undefined> {
 		const response = await login(loginParam);
 		return response;
 	}
