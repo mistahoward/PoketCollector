@@ -3,21 +3,44 @@ import {
 	Button,
 	Card, Col, Container, Form, Row
 } from 'react-bootstrap';
-
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import withReactContent from 'sweetalert2-react-content';
+
+import { useLoginMutation } from '../store/user';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
 
-	const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+	const swal = withReactContent(Swal);
+
+	const [login] = useLoginMutation();
+
+	const handleSubmit = async (event: React.FormEvent<HTMLInputElement>) => {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
 		setValidated(true);
+		try {
+			const response = await login({ email, password }).unwrap();
+			if (response) {
+				swal.fire(({
+					title: 'Success',
+					icon: 'success',
+					text: 'You have successfully logged in!',
+				}));
+			}
+		} catch (err) {
+			swal.fire(({
+				title: 'Error',
+				icon: 'error',
+				text: 'There was an error logging in.',
+			}));
+		}
 	};
 
 	return (
