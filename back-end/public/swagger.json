@@ -6,7 +6,7 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"CreateUserResponse": {
+			"SuccessOrError": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -15,9 +15,6 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"success"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -37,21 +34,6 @@
 					"userName",
 					"email",
 					"password"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"LoginResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"error": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"success"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -118,7 +100,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/CreateUserResponse"
+									"$ref": "#/components/schemas/SuccessOrError"
 								}
 							}
 						}
@@ -150,7 +132,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/LoginResponse"
+									"$ref": "#/components/schemas/SuccessOrError"
 								}
 							}
 						}

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { SuccessOrError } from '../types';
 
 export type User = {
 	id: number;
@@ -21,11 +22,6 @@ export type UserLoginPayload = {
 	password: string;
 }
 
-export type UserLoginResponse = {
-	success?: boolean;
-	error?: string;
-}
-
 export const userApi = createApi({
 	reducerPath: 'userApi',
 	baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BACKEND_ROOT}/user` }),
@@ -33,14 +29,14 @@ export const userApi = createApi({
 		getUser: builder.query<User, number>({
 			query: (id) => `/${id}`,
 		}),
-		createUser: builder.mutation<UserCreationPayload, UserCreationPayload>({
+		createUser: builder.mutation<SuccessOrError, UserCreationPayload>({
 			query: (user) => ({
 				url: '/register',
 				method: 'POST',
 				body: user
 			}),
 		}),
-		login: builder.mutation<UserLoginResponse, UserLoginPayload>({
+		login: builder.mutation<SuccessOrError, UserLoginPayload>({
 			query: (user) => ({
 				url: '/login',
 				method: 'POST',

@@ -3,6 +3,7 @@ import { User } from "../models";
 import sha256 from 'crypto-js/sha256';
 import { randomBytes } from "crypto";
 import passport from "passport";
+import { SuccessOrError } from "../types";
 
 export interface UserCreationPayload {
 	userName: string;
@@ -15,12 +16,7 @@ export interface LoginPayload {
 	password: string;
 }
 
-export interface LoginResponse {
-	success: boolean;
-	error?: string;
-}
-
-export const createUser = async (payload: UserCreationPayload): Promise<User> => {
+export const createUser = async (payload: UserCreationPayload): Promise<SuccessOrError> => {
 	const user = new User();
 	const userRepo = AppDataSource.manager.getRepository(User);
 	user.userName = payload.userName;
@@ -32,10 +28,19 @@ export const createUser = async (payload: UserCreationPayload): Promise<User> =>
 	user.salt = salt;
 	const hash = sha256(payload.password + salt).toString();
 	user.password = hash;
-	return await userRepo.save(user);
+	const userCreateResponse =  await userRepo.save(user);
+	if (userCreateResponse) {
+		return {
+			success: true
+		}
+	}
+	return {
+		success: false,
+		error: 'User creation failed'
+	}
 }
 
-export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
+export const login = async (payload: LoginPayload): Promise<SuccessOrError> => {
 	const workingUser = new User();
 	const userRepo = AppDataSource.manager.getRepository(User);
 	const claimedUser = await userRepo.find({
