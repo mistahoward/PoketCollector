@@ -1,6 +1,5 @@
 import express from "express";
 import UserController from "../controllers/user.controller";
-import passport from "passport";
 import { User } from "../models";
 
 const UserRouter = express.Router();
@@ -15,8 +14,7 @@ UserRouter.post("/login", async (req, res) => {
 	const controller = new UserController();
 	const response = await controller.login(req.body);
 	if (response instanceof User) {
-		const user = response;
-		req.login(user, (err) => {
+		req.logIn(response, (err) => {
 			if (err) {
 				return res.send({
 					success: false,

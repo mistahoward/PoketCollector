@@ -40,14 +40,35 @@ export const createUser = async (payload: UserCreationPayload): Promise<SuccessO
 	}
 }
 
-export const login = async (payload: LoginPayload): Promise<User | undefined> => {
-	const workingUser = new User();
+export const getUserById = async (id: number): Promise<User | undefined> => {
 	const userRepo = AppDataSource.manager.getRepository(User);
-	const claimedUser = await userRepo.findOne({
+	const user = await userRepo.findOne({
 		where: {
-			email: payload.email
+			id: id
 		}
 	});
+	if (user) {
+		return user;
+	}
+	return undefined;
+}
+
+export const getUserByEmail = async (email: string): Promise<User | undefined> => {
+	const userRepo = AppDataSource.manager.getRepository(User);
+	const user = await userRepo.findOne({
+		where: {
+			email: email
+		}
+	});
+	if (user) {
+		return user;
+	}
+	return undefined;
+}
+
+export const login = async (payload: LoginPayload): Promise<User | undefined> => {
+	const workingUser = new User();
+	const claimedUser = await getUserByEmail(payload.email);
 
 	if (claimedUser) {
 		workingUser.password = claimedUser.password;
@@ -56,8 +77,6 @@ export const login = async (payload: LoginPayload): Promise<User | undefined> =>
 		if (hash === workingUser.password) {
 			const sessionUser = new User();
 			sessionUser.id = claimedUser.id;
-			sessionUser.userName = claimedUser.userName;
-			sessionUser.email = claimedUser.email;
 			return sessionUser;
 		}
 	}

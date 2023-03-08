@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8000;
 
 import passport from 'passport';
 import { Pool } from 'pg';
+import { User } from './models';
 
 const app: Application = express();
 
@@ -58,15 +59,15 @@ app.use(
 	})
 );
 
-passport.serializeUser((user, cb) => {
+passport.serializeUser((user, done) => {
 	process.nextTick(() => {
-		cb(null, user);
+		done(null, user);
 	})
 });
 
-passport.deserializeUser((user: Express.User, cb) => {
+passport.deserializeUser((user: User, done) => {
 	process.nextTick(() => {
-		cb(null, user);
+		done(null, user);
 	})
 });
 
