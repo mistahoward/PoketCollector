@@ -4,6 +4,12 @@ import { User } from "../models";
 
 const UserRouter = express.Router();
 
+UserRouter.get("/details", async (req, res) => {
+	const controller = new UserController();
+	const response = await controller.getUser(req.user?.id.toString() ?? '0');
+	return res.send(response);
+});
+
 UserRouter.post("/register", async (req, res) => {
 	const controller = new UserController();
 	const response = await controller.createUser(req.body);
@@ -18,11 +24,12 @@ UserRouter.post("/login", async (req, res) => {
 			if (err) {
 				return res.send({
 					success: false,
-					error: err
+					error: err,
 				});
 			} else {
 				return res.send({
-					success: true
+					success: true,
+					data: response
 				});
 			}
 		});
@@ -32,7 +39,6 @@ UserRouter.post("/login", async (req, res) => {
 			error: 'Login failed'
 		});	
 	}
-	console.debug(res);
 });
 
 export default UserRouter;

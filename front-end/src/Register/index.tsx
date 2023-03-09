@@ -6,14 +6,17 @@ import ReactPasswordChecklist from 'react-password-checklist';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
-import { UserCreationPayload, useCreateUserMutation } from '../store/user';
+import { UserCreationPayload } from '../store/user/types';
+import { useAppDispatch } from '../store/hooks';
+import { registerUser } from '../store/user';
 
 const Register = () => {
 	const [email, setEmail] = useState('');
-	const [userName, setUserName] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
+
+	const dispatch = useAppDispatch();
 
 	const navigate = useNavigate();
 
@@ -24,15 +27,13 @@ const Register = () => {
 
 	const user = useRef<UserCreationPayload>({
 		email: '',
-		userName: '',
+		username: '',
 		password: '',
 	});
 
-	const [createUser] = useCreateUserMutation();
-
 	const resetFields = () => {
 		setEmail('');
-		setUserName('');
+		setUsername('');
 		setPassword('');
 		setPasswordConfirm('');
 	};
@@ -48,22 +49,22 @@ const Register = () => {
 		if (validPassword) {
 			user.current = {
 				email,
-				userName,
+				username,
 				password,
 			};
 			try {
-				const response = await createUser(user.current).unwrap();
-				if (response) {
-					resetFields();
-					swal.fire(({
-						title: 'Success',
-						icon: 'success',
-						text: 'You have successfully registered an account!'
-					}));
-					navigate('/login');
-				}
+				dispatch(registerUser(user.current)).then((resp) => {
+					if (resp.payload.success === true) {
+						resetFields();
+						swal.fire(({
+							title: 'Success',
+							icon: 'success',
+							text: 'You have successfully registered an account!'
+						}));
+						navigate('/login');
+					}
+				});
 			} catch (error) {
-				console.debug(error);
 				resetFields();
 				swal.fire(({
 					title: 'Error',
@@ -106,10 +107,10 @@ const Register = () => {
 											</Form.Label>
 											<Form.Control
 												required
-												onChange={(e) => setUserName(e.target.value)}
+												onChange={(e) => setUsername(e.target.value)}
 												type="text"
 												placeholder="Username"
-												value={userName}
+												value={username}
 											/>
 										</Col>
 									</Row>

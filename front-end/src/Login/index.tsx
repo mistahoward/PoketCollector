@@ -7,8 +7,6 @@ import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 
-import { useLoginMutation } from '../store/user';
-
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -18,8 +16,6 @@ const Login = () => {
 
 	const swal = withReactContent(Swal);
 
-	const [login] = useLoginMutation();
-
 	const handleSubmit = async (event: React.FormEvent<HTMLInputElement>) => {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
@@ -28,7 +24,7 @@ const Login = () => {
 		}
 		event.preventDefault();
 		try {
-			const response = await login({ email, password }).unwrap();
+			// const response = await login({ email, password }).unwrap();
 			setValidated(true);
 			if (response.success === true) {
 				swal.fire(({

@@ -10,6 +10,7 @@ import './Layout.css';
 const Layout = () => {
 	const navigate = useNavigate();
 	// ! need to put hook here - use bool for debugging
+	// console.log(userData);
 	const signedIn = false;
 
 	return (

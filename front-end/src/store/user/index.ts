@@ -1,49 +1,46 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
+import { UserCreationPayload, UserStore } from './types';
+import userApi from './api';
 import { SuccessOrError } from '../types';
 
-export type User = {
-	id: number;
-	firstName: string;
-	lastName: string;
-	userName: string;
-	email: string;
-	createdAt: Date;
-	updatedAt: Date;
+const initialState: UserStore = {
+	id: 0,
+	username: '',
+	loaded: false,
 };
 
-export type UserCreationPayload = {
-	userName: string;
-	email: string;
-	password: string;
-};
-
-export type UserLoginPayload = {
-	email: string;
-	password: string;
-}
-
-export const userApi = createApi({
-	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BACKEND_ROOT}/user` }),
-	endpoints: (builder) => ({
-		getUser: builder.query<User, number>({
-			query: (id) => `/${id}`,
-		}),
-		createUser: builder.mutation<SuccessOrError, UserCreationPayload>({
-			query: (user) => ({
-				url: '/register',
-				method: 'POST',
-				body: user
-			}),
-		}),
-		login: builder.mutation<SuccessOrError, UserLoginPayload>({
-			query: (user) => ({
-				url: '/login',
-				method: 'POST',
-				body: user
-			}),
-		}),
-	}),
+export const registerUser = createAsyncThunk('user/register', async (user: UserCreationPayload) => {
+	const response = await userApi.registerUser(user);
+	console.log(response);
+	return response;
 });
 
-export const { useGetUserQuery, useCreateUserMutation, useLoginMutation } = userApi;
+export const userSlice = createSlice({
+	name: 'user',
+	initialState,
+	reducers: {},
+	extraReducers: (builder) => {
+		builder.addCase(
+			registerUser.fulfilled,
+			(state, action: PayloadAction<SuccessOrError<UserStore>>) => {
+				if (!action.payload.success || !action.payload.data) {
+					return;
+				}
+				const userData = action.payload.data;
+				return {
+					...state,
+					id: userData.id,
+					username: userData.username,
+					loaded: true,
+				}
+			}
+		);
+		builder.addCase(registerUser.rejected, (state) => {
+			state.loaded = true;
+		});
+	},
+});
+
+export default userSlice.reducer;

@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 8000;
 
 import passport from 'passport';
 import { Pool } from 'pg';
-import { User } from './models';
 import { getUserById } from './repositories/user.repo';
 
 const app: Application = express();
@@ -37,7 +36,7 @@ app.use(
 		saveUninitialized: false,
 		cookie: {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
-			sameSite: true,
+			// sameSite: true,
 			secure: false, // ENABLE ONLY ON HTTPS
 		},
 	})
