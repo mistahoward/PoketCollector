@@ -1,7 +1,7 @@
-export type UserStore = {
+export type UserSession = {
 	id: number;
 	username: string;
-	loaded: boolean;
+	email: string;
 }
 
 export type User = {

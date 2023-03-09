@@ -3,7 +3,7 @@ import { User } from "../models";
 import sha256 from 'crypto-js/sha256';
 import { randomBytes } from "crypto";
 import passport from "passport";
-import { SuccessOrError, UserMeta } from "../types";
+import { SuccessOrError, UserSession } from "../types";
 
 export interface UserCreationPayload {
 	username: string;
@@ -16,7 +16,7 @@ export interface LoginPayload {
 	password: string;
 }
 
-export const createUser = async (payload: UserCreationPayload): Promise<SuccessOrError<UserMeta>> => {
+export const createUser = async (payload: UserCreationPayload): Promise<SuccessOrError<UserSession>> => {
 	const user = new User();
 	const userRepo = AppDataSource.manager.getRepository(User);
 	user.username = payload.username;
@@ -34,7 +34,8 @@ export const createUser = async (payload: UserCreationPayload): Promise<SuccessO
 			success: true,
 			data: {
 				id: userCreateResponse.id,
-				username: userCreateResponse.username
+				email: userCreateResponse.email,
+			username: userCreateResponse.username
 			}
 		}
 	}

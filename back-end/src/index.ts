@@ -36,7 +36,7 @@ app.use(
 		saveUninitialized: false,
 		cookie: {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
-			// sameSite: true,
+			sameSite: 'none',
 			secure: false, // ENABLE ONLY ON HTTPS
 		},
 	})
@@ -75,7 +75,7 @@ passport.deserializeUser(async (serializedUser: string, done) => {
 	})
 });
 
-app.options('*', cors());
+app.options('*', cors({ credentials: true}));
 app.use(cors({ origin: process.env.FRONT_END_ROOT }));
 
 app.use(Router);

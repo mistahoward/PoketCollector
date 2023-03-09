@@ -1,8 +1,8 @@
 import { SuccessOrError } from '../types';
-import { UserCreationPayload, UserLoginPayload } from './types';
+import { UserCreationPayload, UserLoginPayload, UserSession } from './types';
 
 const userApi = {
-	registerUser: async (user: UserCreationPayload): SuccessOrError<UserStore => {
+	registerUser: async (user: UserCreationPayload): Promise<SuccessOrError<UserSession>> => {
 		const response = await fetch(`${import.meta.env.VITE_BACKEND_ROOT}/user/register`, {
 			method: 'POST',
 			body: JSON.stringify(user),
@@ -13,7 +13,7 @@ const userApi = {
 		const data = await response.json();
 		return data;
 	},
-	loginUser: async (user: UserLoginPayload) => {
+	loginUser: async (user: UserLoginPayload): Promise<SuccessOrError<UserSession>> => {
 		const response = await fetch(`${import.meta.env.VITE_BACKEND_ROOT}/user/login`, {
 			method: 'POST',
 			body: JSON.stringify(user),

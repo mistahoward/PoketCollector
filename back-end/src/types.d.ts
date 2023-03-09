@@ -3,12 +3,6 @@ export interface SuccessOrError<T> {
 	error?: string;
 	data?: T
 }
-
-export interface UserMeta {
-	id: number;
-	username: string;
-}
-
 export interface UserSession {
 	id: number;
 	username: string;

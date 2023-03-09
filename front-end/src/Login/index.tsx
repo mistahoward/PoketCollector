@@ -6,11 +6,15 @@ import {
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
+import { loginUser } from '../store/user';
+import { useAppDispatch } from '../store/hooks';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
+
+	const dispatch = useAppDispatch();
 
 	const navigate = useNavigate();
 
@@ -24,16 +28,21 @@ const Login = () => {
 		}
 		event.preventDefault();
 		try {
-			// const response = await login({ email, password }).unwrap();
+			const user = {
+				email,
+				password,
+			};
+			dispatch(loginUser(user)).then((resp) => {
+				if (resp.payload.success === true) {
+					swal.fire(({
+						title: 'Success',
+						icon: 'success',
+						text: 'You have successfully logged in!',
+					}));
+					navigate('/home');
+				}
+			});
 			setValidated(true);
-			if (response.success === true) {
-				swal.fire(({
-					title: 'Success',
-					icon: 'success',
-					text: 'You have successfully logged in!',
-				}));
-				navigate('/home');
-			}
 		} catch (err) {
 			setValidated(false);
 			swal.fire(({

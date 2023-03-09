@@ -1,6 +1,6 @@
 import { Post, Route, Get, Body, Tags, Security, Request } from 'tsoa';
 import { LoginPayload, UserCreationPayload, createUser, getUserById, login } from '../repositories/user.repo';
-import { SuccessOrError, UserMeta } from '../types';
+import { SuccessOrError, UserSession } from '../types';
 import { User } from '../models';
 
 @Route('user')
@@ -15,7 +15,7 @@ export default class UserController {
 	@Post('/register')
 	public async createUser(
 		@Body() userCreationParam: UserCreationPayload
-	): Promise<SuccessOrError<UserMeta>> {
+	): Promise<SuccessOrError<UserSession>> {
 		const response = await createUser(userCreationParam);
 		return response;
 	}

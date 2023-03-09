@@ -45,7 +45,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserMeta": {
+			"UserSession": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -53,16 +53,20 @@
 					},
 					"username": {
 						"type": "string"
+					},
+					"email": {
+						"type": "string"
 					}
 				},
 				"required": [
 					"id",
-					"username"
+					"username",
+					"email"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"SuccessOrError_UserMeta_": {
+			"SuccessOrError_UserSession_": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -71,7 +75,7 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/UserMeta"
+						"$ref": "#/components/schemas/UserSession"
 					}
 				},
 				"type": "object",
@@ -157,7 +161,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/SuccessOrError_UserMeta_"
+									"$ref": "#/components/schemas/SuccessOrError_UserSession_"
 								}
 							}
 						}
