@@ -32,6 +32,7 @@ UserRouter.post("/login", async (req, res) => {
 			error: 'Login failed'
 		});	
 	}
+	console.debug(res);
 });
 
 export default UserRouter;

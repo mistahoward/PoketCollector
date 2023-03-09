@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8000;
 import passport from 'passport';
 import { Pool } from 'pg';
 import { User } from './models';
+import { getUserById } from './repositories/user.repo';
 
 const app: Application = express();
 
@@ -60,12 +61,16 @@ app.use(
 );
 
 passport.serializeUser((user, done) => {
+	const serializedUser = JSON.stringify({ id: user.id });
 	process.nextTick(() => {
-		done(null, user);
+		done(null, serializedUser);
 	})
 });
 
-passport.deserializeUser((user: User, done) => {
+passport.deserializeUser(async (serializedUser: string, done) => {
+	const userSession = JSON.parse(serializedUser) as { id: number };
+	const user = await getUserById(userSession.id);
+
 	process.nextTick(() => {
 		done(null, user);
 	})
