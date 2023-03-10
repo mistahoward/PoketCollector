@@ -17,6 +17,8 @@ import { getUserById } from './repositories/user.repo';
 
 const app: Application = express();
 
+const environment = process.env.env ?? 'dev';
+
 const pool = new Pool({
   host: process.env.POSTGRESURL ?? '',
   port: 5432,
@@ -35,8 +37,9 @@ app.use(
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
+			// httpOnly: false,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
-			sameSite: 'none',
+			sameSite: environment === 'dev' ? 'lax' : 'none',
 			secure: false, // ENABLE ONLY ON HTTPS
 		},
 	})
@@ -75,8 +78,11 @@ passport.deserializeUser(async (serializedUser: string, done) => {
 	})
 });
 
-app.options('*', cors({ credentials: true}));
-app.use(cors({ origin: process.env.FRONT_END_ROOT }));
+app.use(cors({ 
+	origin: process.env.FRONT_END_ROOT,
+	preflightContinue: true,
+	credentials: true,
+ }));
 
 app.use(Router);
 
