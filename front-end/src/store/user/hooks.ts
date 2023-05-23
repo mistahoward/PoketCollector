@@ -23,9 +23,8 @@ export const useLogin = () => {
 					title: 'Success',
 					text: 'Login successful',
 					icon: 'success',
-				}).then(() => {
-					navigate('/');
 				});
+				navigate('/');
 			} else {
 				throw new Error('Login failed');
 			}

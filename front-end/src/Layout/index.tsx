@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
-import './Layout.css';
+import styles from './Layout.module.css';
 
 const Layout = () => {
 	const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Layout = () => {
 							</Nav>
 						</Offcanvas.Body>
 					</Navbar.Offcanvas>
-					<Navbar.Text className="nav-bar-icon">
+					<Navbar.Text className={styles.navBarIcon}>
 						{signedIn
 							? <FontAwesomeIcon icon={faCircleUser} />
 							: <Link to="login"><FontAwesomeIcon icon={faRightFromBracket} /></Link>}
