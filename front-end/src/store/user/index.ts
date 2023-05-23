@@ -15,12 +15,12 @@ const initialState: UserStore = {
 	loaded: false,
 };
 
-export const registerUser = createAsyncThunk('user/register', async (user: UserCreationPayload) => {
+export const registerUser = createAsyncThunk('user/register', async (user: UserCreationPayload): Promise<SuccessOrError<UserSession>> => {
 	const response = await userApi.registerUser(user);
 	return response;
 });
 
-export const loginUser = createAsyncThunk('user/login', async (user: UserLoginPayload) => {
+export const loginUser = createAsyncThunk('user/login', async (user: UserLoginPayload): Promise<SuccessOrError<UserSession>> => {
 	const response = await userApi.loginUser(user);
 	return response;
 });
@@ -32,17 +32,15 @@ export const userSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(
 			registerUser.fulfilled,
-			(state, action: PayloadAction<SuccessOrError<UserStore>>) => {
+			(state, action: PayloadAction<SuccessOrError<UserSession>>) => {
 				if (!action.payload.success || !action.payload.data) {
 					return;
 				}
 				const userData = action.payload.data;
-				return {
-					...state,
-					id: userData.id,
-					username: userData.username,
-					loaded: true,
-				};
+				state.id = userData.id;
+				state.username = userData.username;
+				state.email = userData.email;
+				state.loaded = true;
 			}
 		);
 		builder.addCase(registerUser.rejected, (state) => {
@@ -50,17 +48,15 @@ export const userSlice = createSlice({
 		});
 		builder.addCase(
 			loginUser.fulfilled,
-			(state, action: PayloadAction<SuccessOrError<UserStore>>) => {
+			(state, action: PayloadAction<SuccessOrError<UserSession>>) => {
 				if (!action.payload.success || !action.payload.data) {
 					return;
 				}
 				const userData = action.payload.data;
-				return {
-					...state,
-					id: userData.id,
-					username: userData.username,
-					loaded: true,
-				};
+				state.id = userData.id;
+				state.username = userData.username;
+				state.email = userData.email;
+				state.loaded = true;
 			}
 		);
 		builder.addCase(loginUser.rejected, (state) => {

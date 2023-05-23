@@ -21,6 +21,7 @@ module.exports = {
 		'no-tabs': 'off',
 		indent: ['error', 'tab', { SwitchCase: 1 }],
 		'@typescript-eslint/semi': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
 		'react/jsx-indent': ['error', 'tab'],
 		'comma-dangle': 'off',

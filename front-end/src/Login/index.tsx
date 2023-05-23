@@ -3,22 +3,15 @@ import {
 	Button,
 	Card, Col, Container, Form, Row
 } from 'react-bootstrap';
-import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom';
-import withReactContent from 'sweetalert2-react-content';
-import { loginUser } from '../store/user';
-import { useAppDispatch } from '../store/hooks';
+import { Link } from 'react-router-dom';
+import { useLogin } from '../store/user/hooks';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
 
-	const dispatch = useAppDispatch();
-
-	const navigate = useNavigate();
-
-	const swal = withReactContent(Swal);
+	const login = useLogin();
 
 	const handleSubmit = async (event: React.FormEvent<HTMLInputElement>) => {
 		const form = event.currentTarget;
@@ -32,24 +25,10 @@ const Login = () => {
 				email,
 				password,
 			};
-			dispatch(loginUser(user)).then((resp) => {
-				if (resp.payload.success === true) {
-					swal.fire(({
-						title: 'Success',
-						icon: 'success',
-						text: 'You have successfully logged in!',
-					}));
-					navigate('/home');
-				}
-			});
+			login(user);
 			setValidated(true);
 		} catch (err) {
 			setValidated(false);
-			swal.fire(({
-				title: 'Error',
-				icon: 'error',
-				text: 'There was an error logging in.',
-			}));
 		}
 	};
 
