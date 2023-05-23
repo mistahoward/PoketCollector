@@ -6,12 +6,8 @@ I have recently acquired a taste for collecting pokemon cards - while I won't be
 - Vite
 - Redux (Redux Toolkit)
 - React Router
-
-### BackEnd Tech
-- Express
-	- tsoa
-	- openAPI (swagger)
-
-### Overlap Tech
 - ESlint
 - Typescript
+
+### BackEnd Tech
+- FastAPI
